@@ -1,6 +1,15 @@
 package invoicegenerator
 
-import ()
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+)
+
+const requestURL = "https://invoice-generator.com"
+const requestType = "application/json"
 
 type Invoice struct {
 	From   string `json:"from"`
@@ -20,6 +29,24 @@ type Item struct {
 }
 
 func (i *Invoice) Create() {
-	b, err := json.M
+	b, err := json.Marshal(*i)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("printing b", string(b))
+	client := &http.Client{}
+
+	resp, err := client.Post(requestURL, requestType, bytes.NewBuffer(b))
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(body))
 
 }
