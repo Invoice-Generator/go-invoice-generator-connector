@@ -1,6 +1,9 @@
 # go-invoice-generator-connector
 Go Connector to the Invoice-Generator API
 
+It lets you create a pdf invoice by querying the invoice-generator.com api.
+
+
 ###Example
 
 ```Go
