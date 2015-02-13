@@ -3,7 +3,6 @@ package invoicegenerator
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -23,18 +22,17 @@ type Invoice struct {
 }
 
 type Item struct {
-	Name      string `json:"name"`
-	Quantity  int    `json:"quantity"`
-	Unit_cost int    `json:"unit_cost"`
+	Name      string  `json:"name"`
+	Quantity  int64   `json:"quantity"`
+	Unit_cost float64 `json:"unit_cost"`
 }
 
-func (i *Invoice) Create() {
+func (i *Invoice) Create(filename string, fileDir string) {
 	b, err := json.Marshal(*i)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("printing b", string(b))
 	client := &http.Client{}
 
 	resp, err := client.Post(requestURL, requestType, bytes.NewBuffer(b))
@@ -44,9 +42,17 @@ func (i *Invoice) Create() {
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
+
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(body))
+
+	f := fileDir + filename + ".pdf"
+
+	err = ioutil.WriteFile(f, body, 0644)
+
+	if err != nil {
+		panic(err)
+	}
 
 }
