@@ -11,14 +11,20 @@ const requestURL = "https://invoice-generator.com"
 const requestType = "application/json"
 
 type Invoice struct {
-	From   string `json:"from"`
-	To     string `json:"to"`
-	Logo   string `json:"logo"`
-	Number int64  `json:"number"`
-	Date   string `json:"date"`
-	Items  []Item `json:"items"`
-	Notes  string `json:"notes"`
-	Terms  string `json:"terms"`
+	From          string  `json:"from"`
+	To            string  `json:"to"`
+	Logo          string  `json:"logo"`
+	Number        string  `json:"number"`
+	PurchaseOrder string  `json:"purchase_order"`
+	Date          string  `json:"date"`
+	PaymentTerms  string  `json:"payment_terms"`
+	Items         []Item  `json:"items"`
+	Discounts     float64 `json:"discounts"`
+	Tax           float64 `json:"tax"`
+	Shipping      float64 `json:"shipping"`
+	AmountPaid    float64 `json:"amount_paid"`
+	Notes         string  `json:"notes"`
+	Terms         string  `json:"terms"`
 }
 
 type Item struct {
