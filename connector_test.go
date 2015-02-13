@@ -30,5 +30,7 @@ func TestCreate(t *testing.T) {
 	r.Tax = 13.11
 	r.Shipping = 12.20
 
+	r.TaxTitle = "Austin Tax"
+
 	r.Create("bill-5", "/usr/local/pdfstash/")
 }

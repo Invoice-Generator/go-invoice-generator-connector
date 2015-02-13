@@ -28,5 +28,7 @@ r.Discounts = 12.21
 r.Tax = 13.11
 r.Shipping = 12.20
 
+r.TaxTitle = "Austin Tax"
+
 r.Create("bill", "/usr/local/pdfstash/")
 ```
