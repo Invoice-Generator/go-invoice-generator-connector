@@ -14,7 +14,7 @@ type Invoice struct {
 	From   string `json:"from"`
 	To     string `json:"to"`
 	Logo   string `json:"logo"`
-	Number int    `json:"number"`
+	Number int64  `json:"number"`
 	Date   string `json:"date"`
 	Items  []Item `json:"items"`
 	Notes  string `json:"notes"`
