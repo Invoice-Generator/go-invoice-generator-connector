@@ -54,7 +54,7 @@ type Invoice struct {
 type Item struct {
 	Name        string  `json:"name"`
 	Description string  `json:"description"`
-	Quantity    int64   `json:"quantity"`
+	Quantity    float64 `json:"quantity"`
 	Unit_cost   float64 `json:"unit_cost"`
 }
 
@@ -64,32 +64,31 @@ type Field struct {
 	Shipping  float64 `json:"shipping"`
 }
 
-func (i *Invoice) Create(filename string, fileDir string) {
+func (i *Invoice) Create(fullFilePath string) error {
 	b, err := json.Marshal(*i)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	client := &http.Client{}
 
 	resp, err := client.Post(requestURL, requestType, bytes.NewBuffer(b))
 	if err != nil {
-		panic(err)
+		return err
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	f := fileDir + filename + ".pdf"
-
-	err = ioutil.WriteFile(f, body, 0644)
+	err = ioutil.WriteFile(fullFilePath, body, 0644)
 
 	if err != nil {
-		panic(err)
+		return err
 	}
 
+	return nil
 }
