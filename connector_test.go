@@ -32,5 +32,11 @@ func TestCreate(t *testing.T) {
 
 	r.TaxTitle = "Austin Tax"
 
-	r.Create("bill-5", "/usr/local/pdfstash/")
+	r.Currency = "UAH"
+
+	err := r.Create("/usr/local/pdfstash/bill7.pdf")
+
+	if err != nil {
+		panic(err)
+	}
 }
